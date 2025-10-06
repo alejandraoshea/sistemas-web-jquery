@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Main Page</title>
+  <style>
+    body {
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      background-color: #cedefd;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 400px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .error {
+      color: #9f1c1c;
+      font-size: 13px;
+    }
+
+    .success {
+      color: #3e7d41;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="main-container" class="container">
+    <h1>Main Page</h1>
+    <p>Register to find out more.</p>
+    <button id="btn-register">Register</button>
+  </div>
+
+  <div id="form-container" class="container hidden">
+    <h2>Register Form</h2>
+    <form id="registerForm">
+      <label>Name</label>
+      <input type="text" id="name" required>
+      <span id="error-name" class="error"></span>
+
+      <label>Last names</label>
+      <input type="text" id="last-name" required>
+      <span id="error-last-name" class="error"></span>
+
+      <label>Email:</label>
+      <input type="email" id="email" required>
+      <span id="error-email" class="error"></span>
+
+      <label>Phone Number:</label>
+      <input type="text" id="phone-number" required>
+      <span id="error-phone-number" class="error"></span>
+
+      <label>Password:</label>
+      <input type="password" id="password" required>
+      <span id="error-password" class="error"></span>
+
+      <button type="submit">Submit</button>
+      <button type="button" id="cancel">Cancel</button>
+      <div id="message" class="success"></div>
+    </form>
+  </div>
+
+  <script>
+    const mainContainer = document.getElementById('main-container');
+    const formContainer = document.getElementById('form-container');
+    const btnRegister = document.getElementById('btn-register');
+    const btnCancel = document.getElementById('cancel');
+    const form = document.getElementById('registerForm');
+    const message = document.getElementById('message');
+
+    btnRegister.addEventListener('click', () => {
+      mainContainer.classList.add('hidden');
+      formContainer.classList.remove('hidden');
+    });
+
+    btnCancel.addEventListener('click', () => {
+      form.reset();
+      cleanMistakes();
+      message.textContent = '';
+      formContainer.classList.add('hidden');
+      mainContainer.classList.remove('hidden');
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      cleanMistakes();
+      message.textContent = '';
+
+      const name = document.getElementById('name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phoneNumber = document.getElementById('phone-number').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      let valid = true;
+
+      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]/;
+      if (!nameRegex.test(name)) {
+        showError('error-name', 'It must only contain letters');
+        valid = false;
+      }
+
+      const lastNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/;
+      if (!lastNameRegex.test(lastName)) {
+        showError('error-last-name', 'It must only contain more than one word and only letters');
+        valid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showError('error-email', 'Email format invalid.');
+        valid = false;
+      }
+
+      const phoneNbRegex = /^\d+$/;
+      if (!phoneNbRegex.test(phoneNumber)) {
+        showError('error-phone-number', 'No space between numbers allowed.');
+        valid = false;
+      }
+
+      const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!passRegex.test(password)) {
+        showError('error-password', 'At least 8 characters, one upper case, one lower case and a number.');
+        valid = false;
+      }
+
+      if (valid) {
+        message.textContent = '✅ Register completed correctly.';
+        form.reset();
+      }
+    });
+
+    function showError(id, message) {
+      document.getElementById(id).textContent = message;
+    }
+
+    function cleanMistakes() {
+      document.querySelectorAll('.error').forEach(e => e.textContent = '');
+    }
+  </script>
+</body> 
+</html>
+
