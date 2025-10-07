@@ -77,6 +77,7 @@
       color: #3e7d41;
       font-weight: bold;
       margin-top: 8px;
+      display: none;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -120,22 +121,24 @@
   <script>
     $(document).ready(function(){
       $("#btn-register").on("click", function(){
-        $("#main-container").addClass("hidden");
-        $("#form-container").removeClass("hidden");
+        $("#main-container").fadeOut(300, function(){
+        $("#form-container").fadeIn(300);
+        });
       });
 
       $("#cancel").on("click", function(){
         $("#registerForm")[0].reset();
         cleanMistakes();
-        $("#message").text("");
-        $("#form-container").addClass("hidden");
-        $("#main-container").removeClass("hidden");
+        $("#message").fadeOut(200).text("");
+        $("#form-container").fadeOut(300, function(){
+        $("#main-container").fadeIn(300);
+        });
       });
 
       $("#registerForm").on("submit", function(e){
         e.preventDefault();
         cleanMistakes();
-        $("#message").text("");
+        $("#message").fadeOut(200).text("");
 
         const name = $("#name").val().trim();
         const email = $("#email").val().trim();
