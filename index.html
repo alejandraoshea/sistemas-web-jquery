@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-      background-color: #cedefd;
+      background-color: #dde7fc;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -79,7 +79,9 @@
       margin-top: 8px;
     }
   </style>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+
 <body>
   <div id="main-container" class="container">
     <h1>Main Page</h1>
@@ -116,76 +118,70 @@
   </div>
 
   <script>
-    const mainContainer = document.getElementById('main-container');
-    const formContainer = document.getElementById('form-container');
-    const btnRegister = document.getElementById('btn-register');
-    const btnCancel = document.getElementById('cancel');
-    const form = document.getElementById('registerForm');
-    const message = document.getElementById('message');
+    $(document).ready(function(){
+      $("#btn-register").on("click", function(){
+        $("#main-container").addClass("hidden");
+        $("#form-container").removeClass("hidden");
+      });
 
-    btnRegister.addEventListener('click', () => {
-      mainContainer.classList.add('hidden');
-      formContainer.classList.remove('hidden');
+      $("#cancel").on("click", function(){
+        $("#registerForm")[0].reset();
+        cleanMistakes();
+        $("#message").text("");
+        $("#form-container").addClass("hidden");
+        $("#main-container").removeClass("hidden");
+      });
+
+      $("#registerForm").on("submit", function(e){
+        e.preventDefault();
+        cleanMistakes();
+        $("#message").text("");
+
+        const name = $("#name").val().trim();
+        const email = $("#email").val().trim();
+        const phoneNumber = $("#phone-number").val().trim();
+        const password = $("#password").val().trim();
+
+        let valid = true;
+
+        const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ'-]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ'-]+)+$/;
+        if (!nameRegex.test(name)) {
+          showError("#error-name", "It must only contain letters and include both name and surname.");
+          valid = false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError("#error-email", "Email format invalid.");
+          valid = false;
+        }
+
+        const phoneNbRegex = /^\d{9}$/;
+        if (!phoneNbRegex.test(phoneNumber)) {
+          showError("#error-phone-number", "Only numbers are allowed (no spaces).");
+          valid = false;
+        }
+
+        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        if (!passRegex.test(password)) {
+          showError("#error-password", "At least 8 characters, one uppercase, one lowercase, and one number.");
+          valid = false;
+        }
+
+        if (valid) {
+          $("#message").text("✅ Register completed correctly.");
+          $("#registerForm")[0].reset();
+        }
+      });
+
+      function showError(id, message) {
+        $(id).text(message);
+      }
+
+      function cleanMistakes() {
+        $(".error").text("");
+      }
     });
-
-    btnCancel.addEventListener('click', () => {
-      form.reset();
-      cleanMistakes();
-      message.textContent = '';
-      formContainer.classList.add('hidden');
-      mainContainer.classList.remove('hidden');
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      cleanMistakes();
-      message.textContent = '';
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phoneNumber = document.getElementById('phone-number').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      let valid = true;
-
-      const nameRegex = /[A-Za-z]+\s[A-Za-z]+'[A-Za-z]+\s[A-Za-z]+á[A-Za-z]+/;
-      if (!nameRegex.test(name)) {
-        showError('error-name', 'It must only contain letters');
-        valid = false;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showError('error-email', 'Email format invalid.');
-        valid = false;
-      }
-
-      const phoneNbRegex = /^\d+$/;
-      if (!phoneNbRegex.test(phoneNumber)) {
-        showError('error-phone-number', 'No space between numbers allowed.');
-        valid = false;
-      }
-
-      const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-      if (!passRegex.test(password)) {
-        showError('error-password', 'At least 8 characters, one upper case, one lower case and a number.');
-        valid = false;
-      }
-
-      if (valid) {
-        message.textContent = '✅ Register completed correctly.';
-        form.reset();
-      }
-    });
-
-    function showError(id, message) {
-      document.getElementById(id).textContent = message;
-    }
-
-    function cleanMistakes() {
-      document.querySelectorAll('.error').forEach(e => e.textContent = '');
-    }
   </script>
-</body> 
+</body>
 </html>
-
