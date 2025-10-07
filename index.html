@@ -90,13 +90,9 @@
   <div id="form-container" class="container hidden">
     <h2>Register Form</h2>
     <form id="registerForm">
-      <label>Name</label>
+      <label>Name and Last Names</label>
       <input type="text" id="name" required>
       <span id="error-name" class="error"></span>
-
-      <label>Last names</label>
-      <input type="text" id="last-name" required>
-      <span id="error-last-name" class="error"></span>
 
       <label>Email:</label>
       <input type="email" id="email" required>
@@ -146,22 +142,15 @@
       message.textContent = '';
 
       const name = document.getElementById('name').value.trim();
-      const lastName = document.getElementById('last-name').value.trim();
       const email = document.getElementById('email').value.trim();
       const phoneNumber = document.getElementById('phone-number').value.trim();
       const password = document.getElementById('password').value.trim();
 
       let valid = true;
 
-      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]/;
+      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/;
       if (!nameRegex.test(name)) {
         showError('error-name', 'It must only contain letters');
-        valid = false;
-      }
-
-      const lastNameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/;
-      if (!lastNameRegex.test(lastName)) {
-        showError('error-last-name', 'It must only contain more than one word and only letters');
         valid = false;
       }
 
