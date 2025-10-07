@@ -1,0 +1,74 @@
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: #dde7fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 400px;
+  padding: 8px;
+  text-align: center;
+}
+
+button {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: #163e96;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  width: 120px;
+  align-self: center;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: left;
+}
+
+input {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.error {
+  color: #9f1c1c;
+  font-size: 13px;
+}
+
+.success {
+  color: #3e7d41;
+  font-weight: bold;
+  margin-top: 8px;
+  display: none;
+}
