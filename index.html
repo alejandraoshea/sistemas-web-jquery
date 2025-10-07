@@ -8,12 +8,10 @@
     body {
       font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
       background-color: #cedefd;
-      margin: 0;
-      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 90vh;
     }
 
     .container {
@@ -21,24 +19,34 @@
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       width: 400px;
-      padding: 20px;
+      padding: 8px;
       text-align: center;
-      transition: all 0.3s ease;
     }
 
     button {
-      background-color: #2563eb;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      background-color: #163e96;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
+      padding: 6px 12px;
+      border-radius: 7px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 8px;
+      margin-bottom: 8px;
       font-size: 16px;
+      width: 120px;
+      align-self: center;
     }
 
     button:hover {
       background-color: #1d4ed8;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
     }
 
     .hidden {
@@ -48,14 +56,15 @@
     form {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 7px;
       text-align: left;
     }
 
     input {
-      padding: 8px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      padding: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      border-radius: 3px;
       font-size: 14px;
     }
 
@@ -67,7 +76,7 @@
     .success {
       color: #3e7d41;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -101,8 +110,11 @@
       <input type="password" id="password" required>
       <span id="error-password" class="error"></span>
 
-      <button type="submit">Submit</button>
-      <button type="button" id="cancel">Cancel</button>
+      <div class="button-row">
+        <button type="submit">Submit</button>
+        <button type="button" id="cancel">Cancel</button>
+      </div>
+
       <div id="message" class="success"></div>
     </form>
   </div>
