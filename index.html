@@ -148,7 +148,7 @@
 
       let valid = true;
 
-      const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(\s+[A-Za-zÁÉÍÓÚáéíóúÑñ]+)+$/;
+      const nameRegex = /[A-Za-z]+\s[A-Za-z]+'[A-Za-z]+\s[A-Za-z]+á[A-Za-z]+/;
       if (!nameRegex.test(name)) {
         showError('error-name', 'It must only contain letters');
         valid = false;
